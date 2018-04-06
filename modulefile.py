@@ -108,6 +108,7 @@ def modulefile(prefix, pkg, deps=None, paths=None, envs=None):
     template = env.get_template('modulefile.j2')
     if paths is not None:
         for env, dirs in paths.items():  # pragma: no cover
+            dirs = ['$prefix' + dir_[len(prefix):] for dir_ in dirs]
             paths[env] = ':'.join(dirs)
     output = template.render(
         prefix=prefix,
