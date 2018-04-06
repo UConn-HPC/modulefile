@@ -38,6 +38,11 @@ def parse_args(argv=None):
                         help=('package version '
                               '(default: last prefix directory)'),
                         type=str)
+    parser.add_argument('--dep',
+                        help=('dependency module. '
+                              'Can be specified multiple times. '
+                              'ex. --dep boost/1.61.0-gcc-mpi'),
+                        type=str, action='append')
     parser.add_argument('--env',
                         help=('environmental variable key=value pair. '
                               'Can be specified multiple times. '
@@ -88,7 +93,7 @@ def cli(argv=None):
     args = parse_args(argv)
     paths = discover_paths(args.prefix)
     contents = modulefile(args.prefix, [args.pkg_name, args.pkg_version],
-                          paths=paths, envs=args.envs)
+                          deps=args.dep, paths=paths, envs=args.envs)
     print(contents)
 
 
