@@ -63,4 +63,5 @@ setup(
         'Topic :: System :: System Administration',
         'Topic :: Utilities',
     ],
+    url='https://github.com/UConn-HPC/modulefile',
 )
