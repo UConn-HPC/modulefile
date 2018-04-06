@@ -50,7 +50,7 @@ def parse_args(argv=None):
                         type=str, action='append')
     parser.add_argument('--verbosity',
                         help=('verbosity (default: %(default)s)'),
-                        default='debug', choices=['warn', 'info', 'debug'])
+                        default='warn', choices=['warn', 'info', 'debug'])
     args = parser.parse_args(argv)
     logging.basicConfig(level=getattr(logging, args.verbosity.upper()),
                         format='%(levelname)-6s %(message)s')
