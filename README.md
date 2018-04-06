@@ -11,7 +11,8 @@ modulefile.
 # Installation
 
 ```bash
-pip install --user git+https://github.com/UConn-HPC/modulefile
+git clone https://github.com/UConn-HPC/modulefile
+pip install --user --upgrade --editable modulefile/
 ```
 
 Make sure that `~/.local/bin` or similar is in your path per
