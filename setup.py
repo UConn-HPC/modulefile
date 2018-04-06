@@ -9,7 +9,7 @@ from setuptools import find_packages, setup
 
 
 # Boilerplate for pytest-runner suggested by pypi page.
-NEEDS_PYTEST = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
+NEEDS_PYTEST = set(['pytest', 'test', 'ptr']).intersection(sys.argv)
 # Also add pytest itself because it is a runtime dependency of pytest-runner.
 PYTEST_RUNNER = ['pytest-runner', 'pytest'] if NEEDS_PYTEST else []
 
