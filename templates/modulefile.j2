@@ -4,13 +4,13 @@
 # python package and may be overwritten by future re-installations.  Please any
 # raise issues at github.com/UConn-HPC/modulefile
 
-setenv	MOD_APP	{{ pkg_name }}
-setenv	MOD_VER	{{ pkg_version }}
+setenv	MOD_APP	{{ pkg[0] }}
+setenv	MOD_VER	{{ pkg[1] }}
 
 # Special module for recording usage metrics.
 module	load	pre-module
 
-conflict	{{ pkg_name }}
+conflict	{{ pkg[0] }}
 
 {%- if deps is not none %}
 {%- for dep in deps %}

@@ -67,7 +67,7 @@ def parse_args(argv=None):
         logging.info('Inferred package name from prefix as: %s',
                      args.pkg_name)
     if args.pkg_version is None:
-        args.pkg_name = dirs[-1]
+        args.pkg_version = dirs[-1]
         logging.info('Inferred package version from prefix as: %s',
                      args.pkg_version)
     return args
