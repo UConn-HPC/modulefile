@@ -28,7 +28,7 @@ prepend-path	{{ '%-10s' | format(env) }}	{{ path }}
 
 {%- if envs is not none %}
 {%- for env, val in envs.items() %}
-setenv		{{ env }}	{{ val }}
+setenv		{{ '%-10s' | format(env) }}	{{ val }}
 {%- endfor %}
 {%- endif %}
 

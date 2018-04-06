@@ -59,6 +59,16 @@ def parse_args(argv=None):
         sys.stderr.write(('Error: Prefix is too short to '
                           'infer package name and version'))
         error = True
+    envs = OrderedDict() if args.env is not None else None
+    for env_pair in args.env:
+        if env_pair.find('=') == -1:
+            sys.stderr.write(('Error: Missing = in environmental '
+                              'variable pair: %s') % env_pair)
+            error = True
+            break
+        env, val = env_pair.split('=')
+        envs[env.strip()] = val.strip()
+    args.envs = envs
     if error:
         parser.print_help()
         sys.exit(2)
@@ -78,7 +88,7 @@ def cli(argv=None):
     args = parse_args(argv)
     paths = discover_paths(args.prefix)
     contents = modulefile(args.prefix, [args.pkg_name, args.pkg_version],
-                          paths=paths)
+                          paths=paths, envs=args.envs)
     print(contents)
 
 
