@@ -22,7 +22,7 @@ set		prefix		{{ prefix }}
 
 {%- if paths is not none %}
 {%- for env, path in paths.items() %}
-prepend-path	{{ env }}	{{ path }}
+prepend-path	{{ '%-10s' | format(env) }}	{{ path }}
 {%- endfor %}
 {%- endif %}
 
