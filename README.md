@@ -24,18 +24,12 @@ Make sure that `~/.local/bin` or similar is in your path per
 modulefile /path/to/my/app/1.0 > /path/to/my/modulefile/dir/app/1.0
 ```
 
-# Development Environment
+# Tests
 
 Virtual environments and tests are orchestrated using `tox`.  Install
 `tox` using `pip`:
 
     pip install --user tox
-
-Install without tests:
-
-    tox --notest -e py27
-
-# Tests
 
 Run all tests using:
 
