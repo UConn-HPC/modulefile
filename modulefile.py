@@ -76,7 +76,9 @@ def parse_args(argv=None):
 def cli(argv=None):
     """Entrypoint to */bin/modulefile executable."""
     args = parse_args(argv)
-    contents = modulefile(args.prefix, [args.pkg_name, args.pkg_version])
+    paths = discover_paths(args.prefix)
+    contents = modulefile(args.prefix, [args.pkg_name, args.pkg_version],
+                          paths=paths)
     print(contents)
 
 
