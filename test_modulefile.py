@@ -36,9 +36,28 @@ def test_parse_args_relative_prefix_raises_error():
     assert pytest.raises(SystemExit, parse_args, ['opt/myapp/1.0'])
 
 
+def test_parse_args_no_env_separator_raises_error():
+    assert pytest.raises(SystemExit, parse_args,
+                         ['/opt/myapp/1.0', '--env', 'BAR_baz'])
+
+
 def test_parse_args_only_with_prefix():
     args = parse_args(['/opt/myapp/1.0'])
-    assert args.prefix
+    assert args.prefix == '/opt/myapp/1.0'
+
+
+def test_parse_args_with_envs():
+    args = parse_args(['/opt/myapp/1.0',
+                       '--env', 'FOO=bar',
+                       '--env', 'BAR=baz'])
+    assert args.env == ['FOO=bar', 'BAR=baz']
+
+
+def test_parse_args_with_deps():
+    args = parse_args(['/opt/myapp/1.0',
+                       '--dep', 'gcc/5',
+                       '--dep', 'netcdf/4'])
+    assert args.dep == ['gcc/5', 'netcdf/4']
 
 
 # discover_paths
