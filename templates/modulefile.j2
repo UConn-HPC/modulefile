@@ -12,24 +12,24 @@ module	load	pre-module
 
 conflict	{{ pkg_name }}
 
-{% if deps is not none %}
+{%- if deps is not none %}
 {%- for dep in deps %}
 prereq		{{ dep }}
 {%- endfor %}
-{% endif %}
+{%- endif %}
 
 set		prefix		{{ prefix }}
 
-{% if paths is not none %}
+{%- if paths is not none %}
 {%- for env, path in paths.items() %}
 prepend-path	{{ env }}	{{ path }}
 {%- endfor %}
-{% endif %}
+{%- endif %}
 
-{% if envs is not none %}
+{%- if envs is not none %}
 {%- for env, val in envs.items() %}
 setenv		{{ env }}	{{ val }}
 {%- endfor %}
-{% endif %}
+{%- endif %}
 
 module	load	post-module
