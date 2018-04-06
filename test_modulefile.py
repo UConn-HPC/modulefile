@@ -25,27 +25,27 @@ def test_cli_prints_modulefile(capsys):
 
 # parse_args
 def test_parse_args_missing_prefix_raises_error():
-    assert pytest.raises(SystemExit, parse_args, [""])
+    assert pytest.raises(SystemExit, parse_args, [''])
 
 
 def test_parse_args_short_prefix_raises_error():
-    assert pytest.raises(SystemExit, parse_args, ["/opt"])
+    assert pytest.raises(SystemExit, parse_args, ['/opt'])
 
 
 def test_parse_args_relative_prefix_raises_error():
-    assert pytest.raises(SystemExit, parse_args, ["opt/myapp/1.0"])
+    assert pytest.raises(SystemExit, parse_args, ['opt/myapp/1.0'])
 
 
 def test_parse_args_only_with_prefix():
-    args = parse_args(["/opt/myapp/1.0"])
+    args = parse_args(['/opt/myapp/1.0'])
     assert args.prefix
 
 
 # discover_paths
 def test_discover_paths_finds_all_directories(tmpdir):
-    paths = discover_paths("/nonexistant/path")
+    paths = discover_paths('/nonexistant/path')
     assert not paths
-    tmpdir.yaml_create("""
+    tmpdir.yaml_create('''
     bin: {}
     pkgconfig: {}
     info: {}
@@ -57,7 +57,7 @@ def test_discover_paths_finds_all_directories(tmpdir):
     lib: {}
     lib32: {}
     lib64: {}
-    """)
+    ''')
     paths = discover_paths(str(tmpdir))
     assert paths
 
