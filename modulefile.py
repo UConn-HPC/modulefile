@@ -8,7 +8,6 @@ import argparse
 from collections import OrderedDict
 import logging
 import os
-import sys
 
 import jinja2 as j2
 
@@ -47,36 +46,28 @@ def parse_args(argv=None):
                         help=('environmental variable key=value pair. '
                               'Can be specified multiple times. '
                               'ex. --env LICENSE_FILE=/path/to/license'),
-                        type=str, action='append')
+                        type=str, action='append', default=[])
     parser.add_argument('--verbosity',
                         help=('verbosity (default: %(default)s)'),
                         default='warn', choices=['warn', 'info', 'debug'])
     args = parser.parse_args(argv)
     logging.basicConfig(level=getattr(logging, args.verbosity.upper()),
                         format='%(levelname)-6s %(message)s')
-    error = False
     dirs = os.path.normpath(args.prefix).split(os.sep)
     if not os.path.isabs(args.prefix):
-        sys.stderr.write('Error: Prefix must be an absolute path')
-        error = True
+        parser.error('prefix must be an absolute path')
     if len(dirs[1:]) < 2 and \
        (args.pkg_name is None or args.pkg_version is None):
-        sys.stderr.write(('Error: Prefix is too short to '
-                          'infer package name and version'))
-        error = True
+        parser.error(('prefix has too few directories to '
+                      'infer package name and version'))
     envs = OrderedDict() if args.env is not None else None
     for env_pair in args.env:
         if env_pair.find('=') == -1:
-            sys.stderr.write(('Error: Missing = in environmental '
-                              'variable pair: %s') % env_pair)
-            error = True
-            break
+            parser.error(('--env %s is missing the = separator') %
+                         env_pair)
         env, val = env_pair.split('=')
         envs[env.strip()] = val.strip()
     args.envs = envs
-    if error:
-        parser.print_help()
-        sys.exit(2)
     if args.pkg_name is None:
         args.pkg_name = dirs[-2]
         logging.info('Inferred package name from prefix as: %s',
