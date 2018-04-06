@@ -107,7 +107,7 @@ def modulefile(prefix, pkg, deps=None, paths=None, envs=None):
     env = j2.Environment(loader=j2.PackageLoader('modulefile'))
     template = env.get_template('modulefile.j2')
     if paths is not None:
-        for env, dirs in paths.items():
+        for env, dirs in paths.items():  # pragma: no cover
             paths[env] = ':'.join(dirs)
     output = template.render(
         prefix=prefix,
