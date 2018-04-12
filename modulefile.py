@@ -17,10 +17,12 @@ ENV_DIRS = OrderedDict({
     'PATH': ['bin'],
     'CPATH': ['include'],
     'LD_LIBRARY_PATH': ['lib', 'lib32', 'lib64'],
-    'PKG_CONFIG_PATH': ['pkgconfig'],
+    'PKG_CONFIG_PATH': None,
     'MANPATH': ['man', 'share/man'],
     'INFOPATH': ['info', 'share/info'],
 })
+ENV_DIRS['PKG_CONFIG_PATH'] = [lib + '/pkgconfig'
+                               for lib in ENV_DIRS['LD_LIBRARY_PATH']]
 
 
 def parse_args(argv=None):

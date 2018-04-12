@@ -66,16 +66,18 @@ def test_discover_paths_finds_all_directories(tmpdir):
     assert not paths
     tmpdir.yaml_create('''
     bin: {}
-    pkgconfig: {}
     info: {}
     man: {}
     share:
         info: {}
         man: {}
     include: {}
-    lib: {}
-    lib32: {}
-    lib64: {}
+    lib:
+        pkgconfig: {}
+    lib32:
+        pkgconfig: {}
+    lib64:
+        pkgconfig: {}
     ''')
     paths = discover_paths(str(tmpdir))
     assert paths
