@@ -26,6 +26,7 @@ setup(
         ],
     },
     install_requires=[
+        'enum34',
         'jinja2',               # Template for modulefile.
     ],
     packages=find_packages(exclude=['test']),
