@@ -29,7 +29,8 @@ setup(
         'jinja2',               # Template for modulefile.
     ],
     packages=find_packages(exclude=['test']),
-    package_data={'': ['templates/*.j2', 'templates/*.txt']},
+    package_data={'modulefile': ['templates/*.j2']},
+    include_package_data=True,
     setup_requires=PYTEST_RUNNER,
     tests_require=[
         'pytest',               # Powerful test suite.
