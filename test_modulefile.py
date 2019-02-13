@@ -114,11 +114,13 @@ def test_discover_paths_bindir_fallback_uses_prefix_for_non_empty_dir(tmpdir):
     paths = discover_paths(str(tmpdir))
     assert not paths
     tmpdir.yaml_create('''
-    executable: |
+    executable1: |
         This package ignores the UNIX file system hierarchy (man hier).
+    executable2: |
+        Another executable in the prefix root directory.
     ''')
     paths = discover_paths(str(tmpdir))
     assert paths
     assert 'PATH' in paths.keys()
     assert len(paths.keys()) == 1
-    assert paths['PATH'] == str(tmpdir)
+    assert paths['PATH'] == [str(tmpdir)]

@@ -107,7 +107,7 @@ def discover_paths(prefix):
         entries = os.listdir(prefix)
         if any([os.path.isfile(os.path.join(prefix, entry))
                 for entry in entries]):
-            paths['PATH'] = prefix
+            paths['PATH'] = [prefix]
     return paths
 
 
