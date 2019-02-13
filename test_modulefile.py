@@ -46,6 +46,20 @@ def test_parse_args_only_with_prefix():
     assert args.prefix == '/opt/myapp/1.0'
 
 
+def test_parse_args_only_with_prefix_and_only_name():
+    args = parse_args(['/opt/myapp/1.0',
+                       '--pkg_name', 'myapp2'])
+    assert args.prefix == '/opt/myapp/1.0'
+    assert args.pkg_name == 'myapp2'
+
+
+def test_parse_args_only_with_prefix_and_only_version():
+    args = parse_args(['/opt/myapp/1.0',
+                       '--pkg_version', '1.0-rc1'])
+    assert args.prefix == '/opt/myapp/1.0'
+    assert args.pkg_version == '1.0-rc1'
+
+
 def test_parse_args_with_envs():
     args = parse_args(['/opt/myapp/1.0',
                        '--env', 'FOO=bar',
