@@ -101,6 +101,13 @@ def discover_paths(prefix):
                     paths[env].append(path)
                 else:
                     paths[env] = [path]
+    # If nothing found, fall back to setting PATH to prefix if the
+    # prefix root has files.
+    if not paths and os.path.exists(prefix):
+        entries = os.listdir(prefix)
+        if any([os.path.isfile(os.path.join(prefix, entry))
+                for entry in entries]):
+            paths['PATH'] = prefix
     return paths
 
 

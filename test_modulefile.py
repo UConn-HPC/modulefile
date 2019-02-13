@@ -103,3 +103,22 @@ def test_discover_paths_finds_all_directories(tmpdir):
 
     for env, dirs in ENV_DIRS.items():
         check_paths(env, dirs)
+
+
+def test_discover_paths_bindir_fallback_uses_prefix_for_non_empty_dir(tmpdir):
+    paths = discover_paths(str(tmpdir))
+    assert not paths
+    tmpdir.yaml_create('''
+    Documentation: {}
+    ''')
+    paths = discover_paths(str(tmpdir))
+    assert not paths
+    tmpdir.yaml_create('''
+    executable: |
+        This package ignores the UNIX file system hierarchy (man hier).
+    ''')
+    paths = discover_paths(str(tmpdir))
+    assert paths
+    assert 'PATH' in paths.keys()
+    assert len(paths.keys()) == 1
+    assert paths['PATH'] == str(tmpdir)
